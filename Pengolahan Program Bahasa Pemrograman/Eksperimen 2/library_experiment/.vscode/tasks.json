@@ -1,0 +1,107 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Build Static Library",
+            "type": "shell",
+            "command": "gcc",
+            "args": [
+                "-c",
+                "src/mymath.c",
+                "-o",
+                "build/mymath.o"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "Archive Static Library",
+            "type": "shell",
+            "command": "ar",
+            "args": [
+                "rcs",
+                "build/libmymath.a",
+                "build/mymath.o"
+            ],
+            "dependsOn": "Build Static Library",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "Build Dynamic Library",
+            "type": "shell",
+            "command": "gcc",
+            "args": [
+                "-fPIC",
+                "-c",
+                "src/mymath.c",
+                "-o",
+                "build/mymath.o"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "Create Shared Library",
+            "type": "shell",
+            "command": "gcc",
+            "args": [
+                "-shared",
+                "-o",
+                "build/libmymath.so",
+                "build/mymath.o"
+            ],
+            "dependsOn": "Build Dynamic Library",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "Build Static Executable",
+            "type": "shell",
+            "command": "gcc",
+            "args": [
+                "src/main_static.c",
+                "-Lbuild",
+                "-lmymath",
+                "-o",
+                "build/main_static"
+            ],
+            "dependsOn": "Archive Static Library",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "Build Dynamic Executable",
+            "type": "shell",
+            "command": "gcc",
+            "args": [
+                "src/main_dynamic.c",
+                "-Lbuild",
+                "-lmymath",
+                "-o",
+                "build/main_dynamic"
+            ],
+            "dependsOn": "Create Shared Library",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "problemMatcher": []
+        }
+    ]
+}
