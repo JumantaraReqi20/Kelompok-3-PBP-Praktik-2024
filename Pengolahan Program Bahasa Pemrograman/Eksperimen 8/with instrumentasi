@@ -1,0 +1,31 @@
+import time
+import cProfile
+import pstats
+
+def compute_heavy_task():
+    total = 0
+    for i in range(1, 1000000):
+        total += i * i
+    return total
+
+if __name__ == "__main__":
+    # Instrumentasi untuk mengukur waktu eksekusi
+    start_time = time.time()
+    
+    # Profiling dengan cProfile
+    profiler = cProfile.Profile()
+    profiler.enable()
+    
+    result = compute_heavy_task()
+    
+    profiler.disable()
+    end_time = time.time()
+    
+    # Output hasil eksekusi dan waktu
+    print(f"Result: {result}")
+    print(f"Execution Time: {end_time - start_time} seconds")
+    
+    # Output profiling
+    stats = pstats.Stats(profiler)
+    stats.sort_stats(pstats.SortKey.TIME)
+    stats.print_stats(10)

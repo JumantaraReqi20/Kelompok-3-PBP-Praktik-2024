@@ -1,0 +1,49 @@
+import inspect
+
+# Contoh kelas sederhana
+class ExampleClass:
+    def __init__(self, x):
+        self.x = x
+
+    def display(self):
+        print(f"x = {self.x}")
+
+# Introspeksi menggunakan reflection
+def introspect_object(obj):
+    print("=== Introspeksi Objek ===")
+    print(f"Nama Kelas   : {obj.__class__.__name__}")
+    print("Atribut      :")
+    for attr, value in obj.__dict__.items():
+        print(f"  {attr} = {value}")
+    print("Metode       :")
+    methods = inspect.getmembers(obj, predicate=inspect.ismethod)
+    for name, method in methods:
+        print(f"  {name}")
+
+# Modifikasi objek pada runtime
+def modify_object(obj):
+    print("\n=== Modifikasi Objek ===")
+    # Mengubah nilai variabel
+    setattr(obj, 'x', 100)
+    print(f"Nilai 'x' setelah diubah: {obj.x}")
+
+    # Menambahkan metode baru
+    def new_method(self):
+        print("Metode baru telah ditambahkan.")
+    
+    setattr(obj.__class__, 'new_method', new_method)
+
+# Membuat objek dari kelas
+obj = ExampleClass(10)
+print("=== Sebelum Modifikasi ===")
+obj.display()
+
+# Introspeksi objek
+introspect_object(obj)
+
+# Modifikasi objek
+modify_object(obj)
+
+# Memanggil metode baru yang ditambahkan
+print("\n=== Setelah Modifikasi ===")
+obj.new_method()
