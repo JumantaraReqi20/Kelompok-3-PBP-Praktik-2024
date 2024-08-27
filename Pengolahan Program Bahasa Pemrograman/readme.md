@@ -398,6 +398,68 @@ Instrumentasi kode adalah teknik menambahkan kode tambahan ke dalam program untu
 
 **Profiling Data:** Tinjau data profiling untuk melihat bagaimana fungsi dan metode dalam aplikasi digunakan dan berapa lama mereka berjalan. Analisis ini dapat memberikan wawasan tentang bagian-bagian kode yang paling mempengaruhi performa.
 
+## 🧪 Experiment 9: Macro dalam Pemrograman
+
+### 📌 Identifikasi Problem
+Bagaimana penggunaan macro mempengaruhi pemrograman dan efisiensi kode?
+
+### 📄 Deskripsi Problem
+Macro adalah potongan kode yang digantikan sebelum kompilasi. Kode ini sering digunakan untuk meningkatkan efisiensi dan konsistensi, terutama dalam hal logging, pengaturan konfigurasi, dan pengoptimalan performa. Namun, perlu dievaluasi bagaimana macro mempengaruhi pemeliharaan kode dan kinerja program.
+
+### 🔧 Metodologi Eksperimen
+1. **Buat Macro**:
+   - Buat beberapa macro sederhana untuk tujuan logging dalam program.
+   - Contoh macro akan membedakan antara kode yang menggunakan logging dengan yang tidak.
+2. **Bandingkan Kode**:
+   - Gunakan macro untuk mengaktifkan atau menonaktifkan logging.
+   - Bandingkan kode yang menggunakan macro dengan kode yang menulis logging secara manual atau tidak menggunakan logging sama sekali.
+
+### 🔗 Pelaksanaan Eksperimen
+[Link Eksperimen 9](https://chatgpt.com/c/492b5d58-8b2d-4fc2-80bd-788083d93ec7)
+
+1. **Implementasi Macro**:
+   - Buat sebuah program sederhana dengan macro untuk logging.
+   - Jalankan program dengan `LOGGING_ENABLED` diaktifkan dan dinonaktifkan.
+2. **Periksa Performa**:
+   - Gunakan tools seperti `Measure-Command` di PowerShell untuk mengukur waktu eksekusi program.
+   - Gunakan perintah `dir` untuk memeriksa ukuran file executable.
+
+### 📊 Analisis Hasil Eksperimen
+1. **Efisiensi Kode**:
+   - Saat `LOGGING_ENABLED` diaktifkan, program mencatat pesan log, dan ukuran file serta waktu eksekusi mungkin sedikit lebih besar karena adanya tambahan proses logging.
+   - Saat `LOGGING_ENABLED` dinonaktifkan, macro menghilangkan kode logging dari program, menghasilkan file yang lebih kecil dan potensi waktu eksekusi yang lebih cepat.
+2. **Pemeliharaan Kode**:
+   - Menggunakan macro untuk logging mempermudah pengelolaan kode, terutama jika Anda perlu mengaktifkan atau menonaktifkan logging di seluruh aplikasi.
+   - Namun, terlalu banyak macro dapat membuat kode sulit dibaca dan dipahami.
+3. **Hasil Akhir**:
+   - Kode dengan macro menawarkan fleksibilitas dan efisiensi, terutama dalam pengembangan dan debugging. Macro memungkinkan developer untuk dengan cepat mengaktifkan atau menonaktifkan fitur seperti logging tanpa harus mengubah kode di banyak tempat.
+  
+## 🧪 Experiment 10: Call Graph dan Profiling
+
+### 📌 Identifikasi Problem
+Call graph dan profiling digunakan untuk menganalisis dan mengoptimalkan performa program dengan cara memetakan alur pemanggilan fungsi dan mengukur waktu eksekusi masing-masing fungsi dalam sistem pemantauan produksi.
+
+### 📄 Deskripsi Problem
+Dalam kode yang diberikan, call graph direpresentasikan oleh fungsi `run_production_cycle()` yang menunjukkan urutan pemanggilan fungsi-fungsi produksi. Profiling diimplementasikan menggunakan fungsi `profile_function()` yang mengukur waktu eksekusi setiap fungsi. Kedua teknik ini berkontribusi pada optimasi dengan mengidentifikasi alur program dan mengungkap fungsi-fungsi yang memakan waktu paling lama.
+
+### 🔧 Metodologi Eksperimen
+1. **Program**: Dibuat dengan tiga fungsi utama: `check_raw_materials()`, `run_production_line()`, dan `quality_control()`.
+2. **Call Graph**: Diimplementasikan dalam `run_production_cycle()`.
+3. **Profiling**: Dilakukan menggunakan `profile_function()` untuk setiap fungsi utama.
+4. **Jalankan Program**: Program dijalankan untuk mendapatkan hasil call graph dan profiling.
+
+### 🔗 Pelaksanaan Eksperimen
+[Link Eksperimen 10](https://claude.ai/chat/a8dd17e7-9df6-44dc-b280-a41ea9ec0932)
+1. **Call Graph**: Diimplementasikan dalam fungsi `run_production_cycle()`, yang memanggil ketiga fungsi utama secara berurutan.
+2. **Profiling**: Diimplementasikan menggunakan `profile_function()`, yang mengukur waktu eksekusi setiap fungsi.
+3. **Eksekusi Program**: Program dijalankan, menampilkan urutan eksekusi (call graph) dan waktu eksekusi (profiling) untuk setiap fungsi.
+
+### 📊 Analisis Hasil Eksperimen
+1. **Call Graph**: Menunjukkan urutan eksekusi: `check_raw_materials` -> `run_production_line` -> `quality_control`.
+2. **Profiling**: Mengungkap bahwa `run_production_line` memakan waktu paling lama (2 detik), sementara `check_raw_materials` dan `quality_control` masing-masing memakan waktu 1 detik.
+3. **Identifikasi Bottleneck**: Bottleneck performa teridentifikasi pada `run_production_line`, yang menjadi target utama untuk optimasi.
+4. **Optimasi**: Dapat difokuskan pada peningkatan efisiensi lini produksi, karena fungsi ini memakan waktu dua kali lipat dibandingkan fungsi-fungsi lainnya.
+
 ## 🧪 Experiment 11: Directive #define dan #ifdef
 
 ### 📌 Identifikasi Masalah
