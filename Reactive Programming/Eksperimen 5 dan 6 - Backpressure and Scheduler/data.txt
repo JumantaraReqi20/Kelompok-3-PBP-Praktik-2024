@@ -1,0 +1,32 @@
+[
+    {
+        "city": "Jakarta",
+        "temperature": 30,
+        "condition": "Cerah"
+    },
+    {
+        "city": "Bandung",
+        "temperature": 25,
+        "condition": "Berawan"
+    },
+    {
+        "city": "Surabaya",
+        "temperature": 32,
+        "condition": "Hujan Ringan"
+    },
+    {
+        "city": "Yogyakarta",
+        "temperature": 28,
+        "condition": "Cerah Berawan"
+    },
+    {
+        "city": "Medan",
+        "temperature": 27,
+        "condition": "Hujan Sedang"
+    },
+    {
+        "city": "Makassar",
+        "temperature": 31,
+        "condition": "Hujan Ringan"
+    }
+]

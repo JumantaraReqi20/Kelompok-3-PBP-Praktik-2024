@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kondisi Cuaca</title>
+</head>
+<body>
+    <h1>Kondisi Cuaca Saat Ini</h1>
+    <div id="weather">
+        <p id="city">Kota: </p>
+        <p id="temperature">Suhu: </p>
+        <p id="condition">Kondisi: </p>
+    </div>
+    <div id="buttons">
+        <!-- Tombol kota akan dibuat dinamis menggunakan JavaScript -->
+    </div>
+
+    <script type="module">
+        import { from, interval } from 'https://cdn.skypack.dev/rxjs';
+        import { map, switchMap, scan } from 'https://cdn.skypack.dev/rxjs/operators';
+
+        // Mengambil data dari file data.txt
+        fetch('data.txt')
+            .then(response => response.json())
+            .then(data => {
+                // Menyimpan data cuaca yang asli
+                let weatherData = data;
+                let currentCity = weatherData[0]; // Menyimpan kota yang saat ini ditampilkan
+
+                // Fungsi untuk memperbarui suhu secara acak
+                function updateTemperature(data) {
+                    return data.map(item => {
+                        const change = Math.random() < 0.5 ? -2 : 2;
+                        return {
+                            ...item,
+                            temperature: item.temperature + change
+                        };
+                    });
+                }
+
+                // Menampilkan data cuaca
+                function displayWeather(item) {
+                    document.getElementById('city').textContent = `Kota: ${item.city}`;
+                    document.getElementById('temperature').textContent = `Suhu: ${item.temperature}°C`;
+                    document.getElementById('condition').textContent = `Kondisi: ${item.condition}`;
+                }
+
+                // Membuat tombol kota
+                const buttonsContainer = document.getElementById('buttons');
+                data.forEach((item) => {
+                    const button = document.createElement('button');
+                    button.textContent = item.city;
+                    button.addEventListener('click', () => {
+                        currentCity = item; // Mengubah kota yang saat ini ditampilkan
+                        displayWeather(item);
+                    });
+                    buttonsContainer.appendChild(button);
+                });
+
+                // Observable untuk pembaruan suhu
+                const weather$ = interval(5000).pipe(
+                    scan(acc => updateTemperature(acc), weatherData),
+                    switchMap(updatedData => from(updatedData))
+                );
+
+                // Menampilkan data cuaca yang sesuai dengan kota yang saat ini ditampilkan
+                weather$.subscribe(updatedData => {
+                    if (updatedData.city === currentCity.city) {
+                        displayWeather(updatedData);
+                    }
+                });
+
+                // Menampilkan cuaca awal untuk kota pertama
+                displayWeather(currentCity);
+            });
+    </script>
+</body>
+</html>
