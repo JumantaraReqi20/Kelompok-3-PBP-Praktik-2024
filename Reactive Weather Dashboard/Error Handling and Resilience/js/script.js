@@ -60,7 +60,7 @@ document.getElementById('city-form').addEventListener('submit', async (event) =>
     if (weatherData.error) {
         // Show error message if city not found or API issue
         weatherElement.textContent = '';
-        errorElement.textContent = `City "${city}" not found or API issue.`;
+        errorElement.textContent = `City "${city}" not found.`;
     } else {
         // Display valid weather data
         weatherElement.textContent = `Weather in ${city}: ${weatherData.weather}, Temp: ${weatherData.temp}°C`;
